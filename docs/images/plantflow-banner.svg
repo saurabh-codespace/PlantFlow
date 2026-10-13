@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="340" viewBox="0 0 1280 340" role="img" aria-labelledby="title desc">
+  <title id="title">PlantFlow — Your plant, in motion.</title>
+  <desc id="desc">An olive and lime banner with connected plant stops and the Java, Spring Boot, React and RabbitMQ technology stack.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#202a22"/>
+      <stop offset="1" stop-color="#354531"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#e5f1d7" stroke-opacity=".04"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="340" rx="24" fill="url(#background)"/>
+  <rect width="1280" height="340" rx="24" fill="url(#grid)"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <rect x="52" y="48" width="48" height="48" rx="14" fill="#c9ef80"/>
+    <path d="M67 63h14a6 6 0 0 1 0 12H71a6 6 0 0 0 0 12h13" fill="none" stroke="#283525" stroke-width="3"/>
+    <circle cx="67" cy="63" r="4" fill="#c9ef80" stroke="#283525" stroke-width="2.5"/>
+    <circle cx="84" cy="87" r="4" fill="#c9ef80" stroke="#283525" stroke-width="2.5"/>
+    <text x="118" y="83" fill="#c9ef80" font-size="14" font-weight="600" letter-spacing="3">INTERNAL PLANT MOBILITY</text>
+    <text x="50" y="175" fill="#ffffff" font-size="72" font-weight="700" letter-spacing="-3">plantflow<tspan fill="#c9ef80">.</tspan></text>
+    <text x="54" y="215" fill="#dce5d6" font-size="23">Your plant, in motion.</text>
+    <g fill="#ffffff" font-size="13" text-anchor="middle">
+      <rect x="54" y="260" width="88" height="30" rx="15" fill="#ffffff" fill-opacity=".08"/>
+      <text x="98" y="280">Java 21</text>
+      <rect x="152" y="260" width="118" height="30" rx="15" fill="#ffffff" fill-opacity=".08"/>
+      <text x="211" y="280">Spring Boot</text>
+      <rect x="280" y="260" width="80" height="30" rx="15" fill="#ffffff" fill-opacity=".08"/>
+      <text x="320" y="280">React</text>
+      <rect x="370" y="260" width="106" height="30" rx="15" fill="#ffffff" fill-opacity=".08"/>
+      <text x="423" y="280">RabbitMQ</text>
+    </g>
+    <g fill="none" stroke="#c9ef80" stroke-width="2">
+      <path d="M785 101H957Q979 101 979 123V204Q979 226 1001 226H1171" stroke-opacity=".5"/>
+      <path d="M785 101V228Q785 248 805 248H887Q909 248 909 226V176Q909 155 931 155H1171" stroke-dasharray="5 7" stroke-opacity=".3"/>
+      <circle cx="785" cy="101" r="24" fill="#34472c" stroke-opacity=".2"/>
+      <circle cx="979" cy="155" r="29" fill="#34472c" stroke-opacity=".3"/>
+      <circle cx="1171" cy="226" r="24" fill="#34472c" stroke-opacity=".2"/>
+    </g>
+    <circle cx="785" cy="101" r="8" fill="#c9ef80"/>
+    <circle cx="979" cy="155" r="10" fill="#c9ef80"/>
+    <circle cx="1171" cy="226" r="8" fill="#c9ef80"/>
+    <circle cx="909" cy="206" r="5" fill="#c9ef80" fill-opacity=".6"/>
+    <g fill="#c7d5bf" font-size="12" letter-spacing="2" text-anchor="middle">
+      <text x="785" y="58">REQUEST</text>
+      <text x="979" y="111">DISPATCH</text>
+      <text x="1171" y="274">ARRIVE</text>
+    </g>
+  </g>
+</svg>
