@@ -1,0 +1,252 @@
+{
+  "realm": "plantflow",
+  "displayName": "PlantFlow",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 5,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 28800,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "passwordPolicy": "length(12) and digits(1) and lowerCase(1) and upperCase(1) and specialChars(1)",
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN"
+      },
+      {
+        "name": "DISPATCHER"
+      },
+      {
+        "name": "EMPLOYEE"
+      },
+      {
+        "name": "DRIVER"
+      },
+      {
+        "name": "DEVICE"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "plantflow-web",
+      "name": "PlantFlow web",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:5173/*",
+        "http://localhost:5273/*",
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": [
+        "http://localhost:5173",
+        "http://localhost:5273",
+        "http://localhost:8080"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:5273/*##http://localhost:8080/*"
+      },
+      "defaultClientScopes": [
+        "web-origins",
+        "roles",
+        "profile",
+        "email"
+      ],
+      "protocolMappers": [
+        {
+          "name": "plantflow-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "plantflow-api",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "plantflow-device-example",
+      "name": "DISABLED vehicle device provisioning template",
+      "enabled": false,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "fullScopeAllowed": false,
+      "defaultClientScopes": [
+        "roles"
+      ],
+      "protocolMappers": [
+        {
+          "name": "plantflow-api-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "plantflow-api",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "vehicle-identity",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-hardcoded-claim-mapper",
+          "consentRequired": false,
+          "config": {
+            "claim.name": "vehicle_id",
+            "claim.value": "1",
+            "jsonType.label": "long",
+            "id.token.claim": "false",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "device-role",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-hardcoded-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "role": "DEVICE"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "firstName": "Plant",
+      "lastName": "Administrator",
+      "email": "admin@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "username": "dispatcher",
+      "firstName": "Maya",
+      "lastName": "Sharma",
+      "email": "dispatcher@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "DISPATCHER"
+      ]
+    },
+    {
+      "username": "employee",
+      "firstName": "Aarav",
+      "lastName": "Patel",
+      "email": "employee@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "EMPLOYEE"
+      ]
+    },
+    {
+      "username": "driver",
+      "firstName": "Arjun",
+      "lastName": "Mehta",
+      "email": "driver@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "DRIVER"
+      ]
+    },
+    {
+      "username": "driver2",
+      "firstName": "Priya",
+      "lastName": "Singh",
+      "email": "driver2@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "DRIVER"
+      ]
+    },
+    {
+      "username": "driver3",
+      "firstName": "Ravi",
+      "lastName": "Kumar",
+      "email": "driver3@plantflow.local",
+      "emailVerified": true,
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "PlantFlow123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "DRIVER"
+      ]
+    }
+  ]
+}

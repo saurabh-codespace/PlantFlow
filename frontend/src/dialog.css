@@ -1,0 +1,62 @@
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: #19261975;
+  backdrop-filter: blur(3px);
+  z-index: 70;
+  animation: dialog-in 0.15s ease-out;
+}
+.dialog-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 71;
+  border: 1px solid #e1e7d9;
+  box-shadow: 0 25px 100px #14240e38;
+  border-radius: 17px;
+  padding: 27px;
+  width: min(540px, calc(100% - 32px));
+  max-height: 90vh;
+  overflow-y: auto;
+  color: #303c27;
+  background: white;
+  animation: dialog-in 0.15s ease-out;
+}
+.remote-error {
+  padding: 30px;
+}
+.remote-error p {
+  font-size: 12px;
+  color: #626f59;
+  max-width: 550px;
+  margin: 13px 0 20px;
+}
+.remote-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 90px 20px;
+  font-size: 12px;
+  color: #626f59;
+}
+.sso-note {
+  font-size: 12px !important;
+  text-align: center;
+  margin-top: 14px !important;
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-overlay,
+  .dialog-content {
+    animation: none;
+  }
+}

@@ -1,0 +1,33 @@
+#!/bin/sh
+set -eu
+
+psql --username "$POSTGRES_USER" --dbname postgres --set ON_ERROR_STOP=1 \
+  --set transport_password="$TRANSPORT_DB_PASSWORD" \
+  --set fleet_password="$FLEET_DB_PASSWORD" \
+  --set analytics_password="$ANALYTICS_DB_PASSWORD" \
+  --set tracking_password="$TRACKING_DB_PASSWORD" \
+  --set keycloak_password="$KEYCLOAK_DB_PASSWORD" <<'SQL'
+CREATE ROLE transport LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'transport_password';
+CREATE ROLE fleet LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'fleet_password';
+CREATE ROLE analytics LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'analytics_password';
+CREATE ROLE tracking LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'tracking_password';
+CREATE ROLE keycloak LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE PASSWORD :'keycloak_password';
+CREATE DATABASE transport OWNER transport;
+CREATE DATABASE fleet OWNER fleet;
+CREATE DATABASE analytics OWNER analytics;
+CREATE DATABASE tracking OWNER tracking;
+CREATE DATABASE keycloak OWNER keycloak;
+REVOKE ALL ON DATABASE transport FROM PUBLIC;
+REVOKE ALL ON DATABASE fleet FROM PUBLIC;
+REVOKE ALL ON DATABASE analytics FROM PUBLIC;
+REVOKE ALL ON DATABASE tracking FROM PUBLIC;
+REVOKE ALL ON DATABASE keycloak FROM PUBLIC;
+REVOKE CONNECT ON DATABASE postgres FROM PUBLIC;
+REVOKE CONNECT ON DATABASE template1 FROM PUBLIC;
+GRANT CONNECT ON DATABASE transport TO transport;
+GRANT CONNECT ON DATABASE fleet TO fleet;
+GRANT CONNECT ON DATABASE analytics TO analytics;
+GRANT CONNECT ON DATABASE tracking TO tracking;
+GRANT CONNECT ON DATABASE keycloak TO keycloak;
+SQL
+touch /var/lib/postgresql/data/.plantflow-ready

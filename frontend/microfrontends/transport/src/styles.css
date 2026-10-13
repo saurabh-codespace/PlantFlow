@@ -1,0 +1,231 @@
+.pf-transport .board-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 22px;
+  gap: 15px;
+  border-bottom: 1px solid var(--border);
+}
+.pf-transport .segmented {
+  display: flex;
+  padding: 3px;
+  background: #f3f5ed;
+  border-radius: 7px;
+  gap: 3px;
+}
+.pf-transport .segmented button {
+  background: transparent;
+  padding: 8px 11px;
+  color: #626f59;
+  font-size: 12px;
+  border-radius: 5px;
+  min-height: 33px;
+  white-space: nowrap;
+}
+.pf-transport .segmented button.selected {
+  background: white;
+  color: #425734;
+  box-shadow: 0 1px 4px #39472b12;
+}
+.pf-transport .search {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #e4e9dd;
+  border-radius: 7px;
+  padding: 0 10px;
+  color: #626f59;
+  max-width: 255px;
+}
+.pf-transport .search input {
+  border: 0;
+  padding: 9px 0;
+  font-size: 12px;
+  min-width: 0;
+  background: transparent;
+}
+.pf-transport .trip-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 22px;
+}
+.pf-transport .trip-card {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 20px;
+  overflow: hidden;
+}
+.pf-transport .trip-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  color: #626f59;
+}
+.pf-transport .trip-card .trip-route {
+  font-size: 13px;
+  align-items: center;
+}
+.pf-transport .trip-card .trip-route strong {
+  overflow-wrap: anywhere;
+}
+.pf-transport .trip-purpose {
+  font-size: 12px;
+  color: #626f59;
+  margin-top: 9px;
+  overflow-wrap: anywhere;
+}
+.pf-transport .trip-meta {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  font-size: 12px;
+  color: #626f59;
+}
+.pf-transport .trip-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pf-transport .trip-assignment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid var(--border);
+}
+.pf-transport .vehicle-icon {
+  width: 35px;
+  height: 35px;
+  background: #f1f5e9;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #626f59;
+}
+.pf-transport .trip-assignment strong {
+  font-size: 12px;
+}
+.pf-transport .trip-assignment small {
+  font-size: 12px;
+  margin-top: 2px;
+}
+.pf-transport .trip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding-top: 8px;
+}
+.pf-transport .trip-actions:empty {
+  display: none;
+}
+.pf-transport .trip-actions form {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.pf-transport .trip-actions form fieldset {
+  flex: 1;
+  max-width: 80px;
+}
+.pf-transport .trip-actions form .form-submit {
+  margin: 0;
+  width: auto;
+  min-height: 37px;
+  font-size: 12px;
+}
+.pf-transport .reservation-label {
+  font-size: 12px;
+  margin: 0;
+  gap: 4px;
+}
+.pf-transport .reservation-label input {
+  padding: 8px;
+  font-size: 12px;
+}
+.pf-transport .trip-actions form .error {
+  width: 100%;
+  order: 4;
+}
+.pf-transport .reservation-confirmed {
+  font-size: 12px;
+  color: #626f59;
+}
+@media (min-width: 1500px) {
+  .pf-transport .trip-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1200px) {
+  .pf-transport .trip-card {
+    padding: 16px;
+  }
+}
+@media (max-width: 1200px) {
+  .pf-transport .trip-cards {
+    padding: 17px;
+    gap: 13px;
+  }
+}
+@media (max-width: 1200px) {
+  .pf-transport .trip-card .trip-route {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1000px) {
+  .pf-transport .trip-cards {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 1000px) {
+  .pf-transport .board-toolbar {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 1000px) {
+  .pf-transport .search {
+    max-width: none;
+    width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  .pf-transport .segmented button {
+    font-size: 12px;
+    padding: 7px 9px;
+  }
+}
+@media (max-width: 420px) {
+  .pf-transport .board-toolbar {
+    padding: 15px;
+  }
+}
+@media (max-width: 420px) {
+  .pf-transport .trip-cards {
+    padding: 13px;
+  }
+}
+.pf-transport .assignment-error {
+  font-size: 12px;
+  background: #fcf0e7;
+  color: #626f59;
+  padding: 9px;
+  border-radius: 6px;
+  margin-top: 12px;
+}
+.pf-transport .assignment-pending {
+  font-size: 12px;
+  color: #626f59;
+  margin-top: 12px;
+}
+.pf-transport .badge.assigning {
+  color: #626f59;
+  background: #f1eaf7;
+}

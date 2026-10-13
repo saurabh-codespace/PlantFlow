@@ -1,0 +1,5 @@
+# Temporary upgrade bridge only; RabbitMQ 4.2 is outside community support.
+# Docker Hub's latest published 4.2 image is 4.2.9; the 4.2.11 image tag is unavailable.
+services:
+  rabbitmq:
+    image: rabbitmq:4.2.9-management-alpine

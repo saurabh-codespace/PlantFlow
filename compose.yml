@@ -1,0 +1,147 @@
+name: plantflow
+
+x-service-env: &service-env
+  SPRING_PROFILES_ACTIVE: dev
+  OIDC_ISSUER: http://localhost:8081/realms/plantflow
+  OIDC_JWK_SET_URI: http://keycloak:8080/realms/plantflow/protocol/openid-connect/certs
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: 5672
+  RABBITMQ_USER: plantflow
+  RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?Run infra/start-dev.ps1 first}
+
+x-java-service: &java-service
+  restart: unless-stopped
+  init: true
+  read_only: true
+  tmpfs: [/tmp]
+  security_opt: [no-new-privileges:true]
+  cap_drop: [ALL]
+  mem_limit: 768m
+  networks: [backend]
+  depends_on:
+    postgres: {condition: service_healthy}
+    rabbitmq: {condition: service_healthy}
+    keycloak: {condition: service_healthy}
+  healthcheck:
+    test: [CMD-SHELL, 'wget -q --spider http://127.0.0.1:$${SERVER_PORT}/actuator/health']
+    interval: 10s
+    timeout: 5s
+    retries: 12
+    start_period: 60s
+
+services:
+  postgres:
+    image: postgres:17.11-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run infra/start-dev.ps1 first}
+      TRANSPORT_DB_PASSWORD: ${TRANSPORT_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+      FLEET_DB_PASSWORD: ${FLEET_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+      ANALYTICS_DB_PASSWORD: ${ANALYTICS_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+      TRACKING_DB_PASSWORD: ${TRACKING_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+      KEYCLOAK_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./infra/postgres/01-databases.sh:/docker-entrypoint-initdb.d/01-databases.sh:ro
+    networks: [backend]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d postgres && test -f /var/lib/postgresql/data/.plantflow-ready']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  rabbitmq:
+    image: rabbitmq:4.3.6-management-alpine
+    hostname: rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: plantflow
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?Run infra/start-dev.ps1 first}
+      RABBITMQ_DEFAULT_VHOST: /
+    ports: ['127.0.0.1:15672:15672']
+    volumes: [rabbitmq-data:/var/lib/rabbitmq]
+    networks: [backend]
+    healthcheck:
+      test: [CMD, rabbitmq-diagnostics, -q, ping]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.5
+    command: [start-dev, --import-realm]
+    restart: unless-stopped
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+      KC_BOOTSTRAP_ADMIN_USERNAME: bootstrap-admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Run infra/start-dev.ps1 first}
+      KC_HOSTNAME: http://localhost:8081
+      KC_HEALTH_ENABLED: 'true'
+      KC_METRICS_ENABLED: 'true'
+    ports: ['127.0.0.1:8081:8080']
+    volumes: [./infra/keycloak/plantflow-realm.json:/opt/keycloak/data/import/plantflow-realm.json:ro]
+    networks: [backend]
+    depends_on:
+      postgres: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, "{ printf 'HEAD /health/ready HTTP/1.0\\r\\n\\r\\n' >&0; grep 'HTTP/1.0 200'; } 0<>/dev/tcp/localhost/9000"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 30s
+
+  transport-service:
+    <<: *java-service
+    build: {context: ./backend, args: {SERVICE: transport-service}}
+    environment:
+      <<: *service-env
+      SERVER_PORT: 8082
+      DB_URL: jdbc:postgresql://postgres:5432/transport
+      DB_USER: transport
+      DB_PASSWORD: ${TRANSPORT_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+    ports: ['127.0.0.1:8082:8082']
+
+  fleet-service:
+    <<: *java-service
+    build: {context: ./backend, args: {SERVICE: fleet-service}}
+    environment:
+      <<: *service-env
+      SERVER_PORT: 8083
+      DB_URL: jdbc:postgresql://postgres:5432/fleet
+      DB_USER: fleet
+      DB_PASSWORD: ${FLEET_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+    ports: ['127.0.0.1:8083:8083']
+
+  analytics-service:
+    <<: *java-service
+    build: {context: ./backend, args: {SERVICE: analytics-service}}
+    environment:
+      <<: *service-env
+      SERVER_PORT: 8084
+      DB_URL: jdbc:postgresql://postgres:5432/analytics
+      DB_USER: analytics
+      DB_PASSWORD: ${ANALYTICS_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+    ports: ['127.0.0.1:8084:8084']
+
+  tracking-service:
+    <<: *java-service
+    build: {context: ./backend, args: {SERVICE: tracking-service}}
+    environment:
+      <<: *service-env
+      SERVER_PORT: 8085
+      DB_URL: jdbc:postgresql://postgres:5432/tracking
+      DB_USER: tracking
+      DB_PASSWORD: ${TRACKING_DB_PASSWORD:?Run infra/start-dev.ps1 first}
+    ports: ['127.0.0.1:8085:8085']
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  rabbitmq-data:

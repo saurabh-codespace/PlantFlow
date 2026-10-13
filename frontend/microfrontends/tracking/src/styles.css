@@ -1,0 +1,195 @@
+.pf-tracking .tracking-connection {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #626f59;
+  border: 1px solid #dce8ce;
+  background: #f2f7e9;
+  padding: 9px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.pf-tracking .tracking-consent {
+  padding: 25px;
+}
+.pf-tracking .tracking-consent-copy {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  max-width: 790px;
+}
+.pf-tracking .tracking-shield {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  border-radius: 11px;
+  background: #eff6e3;
+  color: #626f59;
+}
+.pf-tracking .tracking-consent-copy h2 {
+  margin-bottom: 8px;
+}
+.pf-tracking .tracking-consent-copy p {
+  font-size: 12px;
+  color: #626f59;
+}
+.pf-tracking .tracking-consent-copy small {
+  font-size: 12px;
+  margin-top: 8px;
+}
+.pf-tracking .tracking-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  margin-top: 24px;
+}
+.pf-tracking .tracking-controls label {
+  max-width: 450px;
+  flex: 1;
+  margin: 0;
+  font-size: 12px;
+}
+.pf-tracking .tracking-controls .button {
+  min-height: 41px;
+}
+.pf-tracking .stop-sharing {
+  background: #faeee5;
+  border: 1px solid #f1d7c8;
+  color: #626f59;
+}
+.pf-tracking .sharing-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #626f59;
+  margin-top: 18px;
+}
+.pf-tracking .tracking-consent .error {
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+.pf-tracking .tracking-map {
+  height: 440px;
+  width: 100%;
+  z-index: 1;
+}
+.pf-tracking .small-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.pf-tracking .tracking-empty {
+  height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(ellipse, #edf3e3, #f6f8ef);
+  color: #626f59;
+  padding: 30px;
+}
+.pf-tracking .tracking-empty h2 {
+  margin-top: 20px;
+  color: #626f59;
+}
+.pf-tracking .tracking-empty p {
+  font-size: 12px;
+  max-width: 360px;
+  margin-top: 11px;
+  color: #626f59;
+}
+.pf-tracking .tracking-empty > span {
+  font-size: 12px;
+  border: 1px solid #dbe5ce;
+  padding: 6px 10px;
+  border-radius: 20px;
+  margin-top: 19px;
+}
+.pf-tracking .tracking-position-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+.pf-tracking .position-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 17px;
+}
+.pf-tracking .position-person {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: #eef0fb;
+  color: #626f59;
+}
+.pf-tracking .position-person.driver,
+.pf-tracking .position-person.vehicle {
+  background: #eef4e5;
+  color: #626f59;
+}
+.pf-tracking .position-card strong {
+  font-size: 12px;
+}
+.pf-tracking .position-card p {
+  font-size: 12px;
+  color: #626f59;
+  margin-top: 3px;
+}
+.pf-tracking .position-live,
+.pf-tracking .position-stale {
+  margin-left: auto;
+  font-size: 12px;
+  color: #626f59;
+}
+.pf-tracking .position-stale {
+  color: #626f59;
+}
+.pf-tracking .leaflet-popup-content {
+  font-family: "DM Sans Variable", sans-serif;
+  line-height: 1.8;
+  font-size: 12px;
+}
+.pf-tracking .leaflet-control-attribution {
+  font-size: 12px;
+}
+@media (max-width: 1000px) {
+  .pf-tracking .tracking-position-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .pf-tracking .page-heading {
+    flex-wrap: wrap;
+  }
+  .pf-tracking .tracking-consent {
+    padding: 18px;
+  }
+  .pf-tracking .tracking-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .pf-tracking .tracking-controls label {
+    max-width: none;
+  }
+  .pf-tracking .tracking-consent-copy {
+    gap: 10px;
+  }
+  .pf-tracking .tracking-consent-copy p {
+    font-size: 12px;
+  }
+  .pf-tracking .tracking-shield {
+    padding: 9px;
+  }
+  .pf-tracking .tracking-map {
+    height: 370px;
+  }
+  .pf-tracking .tracking-position-list {
+    grid-template-columns: 1fr;
+  }
+}
